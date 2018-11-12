@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"labs.laba1"},{"l":"labs.laba1.entity"},{"l":"labs.laba1.helper"},{"l":"labs.laba1.repository"}]
