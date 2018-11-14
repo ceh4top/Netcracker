@@ -18,6 +18,16 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
     /** Array of elements */
     protected T[] values;
 
+    public <L> L[] selectValues(ISelect<T> select) throws Exception {
+        L[] result = ((Class<L>) select.getResult(values[0])).newInstance[];
+        for (T value: values) {
+            int count = result.length;
+            result = Arrays.copyOf(result, count + 1);
+            result[count] = select.getResult(value);
+        }
+        return result;
+    }
+
     public T[] findElements(IFilter<T> filter) {
         T[] values = Arrays.copyOf(this.values, 0);
         for (T value: this.values) {
