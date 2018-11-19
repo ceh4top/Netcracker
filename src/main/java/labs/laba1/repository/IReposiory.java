@@ -3,6 +3,7 @@ package labs.laba1.repository;
 import labs.laba1.entity.IModel;
 
 public interface IReposiory<T extends IModel> {
+    T[] sort();
     /**
      * The method of obtaining an array of elements suitable for the condition
      * @param filter: IFilter

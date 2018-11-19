@@ -116,6 +116,11 @@ public class Person extends Model {
     }
     @Override
     public int hashCode() {
-        return Objects.hash(this.getFullName(), this.getGender(), this.getBrithday());
+        return Objects.hash(this.getFullName(), this.getGender(), this.getAge());
+    }
+
+    @Override
+    public int compareTo(IModel o) {
+        return Integer.compare(this.hashCode(), o.hashCode());
     }
 }

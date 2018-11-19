@@ -33,4 +33,9 @@ abstract class Model implements IModel {
         this.id = id;
         this.name = name;
     }
+
+    @Override
+    public int compareTo(IModel model) {
+        return Integer.compare(this.hashCode(), model.hashCode());
+    }
 }

@@ -3,7 +3,7 @@ package labs.laba1.entity;
 /**
  * Interface model
  */
-public interface IModel {
+public interface IModel extends Comparable<IModel> {
     /**
      * Method of getting a model's ID
      * @return id: int

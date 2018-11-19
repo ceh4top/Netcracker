@@ -18,6 +18,20 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
     /** Array of elements */
     protected T[] values;
 
+    public T[] sort() {
+        T[] values = Arrays.copyOf(this.values, this.values.length);
+        for (int i = 0; i < values.length - 1; ++i) {
+            for (int j = i + 1; j < values.length; ++j) {
+                if (values[j].compareTo(values[i]) < 0) {
+                    T value = values[i];
+                    values[i] = values[j];
+                    values[j] = value;
+                }
+            }
+        }
+        return values;
+    }
+
     public T[] findElements(IFilter<T> filter) {
         T[] values = Arrays.copyOf(this.values, 0);
         for (T value: this.values) {
