@@ -52,5 +52,9 @@ public class Main {
 
         System.out.println("\n------------------------\n");
 
+        for (int age: persons.selectValues(x -> x.getAge())) {
+            System.out.println(age);
+        }
+
     }
 }
