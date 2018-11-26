@@ -6,15 +6,11 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 abstract class Repository<T extends IModel> implements IReposiory<T> {
-    /** Future item identifier */
-    private static int id = 1;
     /**
      * Getting item ID
      * @return id: int - item identifier
      * */
-    protected static int getNewId() {
-        return Repository.id++;
-    }
+    protected abstract int getNewId();
 
     /** Array of elements */
     protected T[] values;
@@ -31,8 +27,12 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
         return values;
     }
     public T findElement(Predicate<T> filter) {
-        T[] values = findElements(filter);
-        return values.length > 0 ? values[0] : null;
+        for (T value: this.values) {
+            if (value != null && filter.test(value)) {
+                return value;
+            }
+        }
+        return null;
     }
     public T[] get() { return this.values; }
     public T get(int id) {
@@ -78,7 +78,7 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
         }
     }
 
-    public void delete(IFilter<T> filter) {
+    public void delete(Predicate<T> filter) {
         delete(findElements(filter));
     }
     public void delete(T[] values) {

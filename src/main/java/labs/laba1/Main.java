@@ -7,9 +7,16 @@ import labs.laba1.repository.PeronRepository;
 import labs.laba1.sort.Sort;
 import org.joda.time.LocalDate;
 
+import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
+    private static <T> void printArray(T[] array) {
+        for (int i = 0; i < array.length; ++i) {
+            System.out.println(array[i]);
+        }
+    }
+
     public static void main(String[] args) {
         IReposiory<Person> persons = PeronRepository.getInstance();
 
@@ -30,31 +37,18 @@ public class Main {
             persons.add(person);
         }
 
-        for(Person p: persons.findElements(x -> x.getAge() < 30)) {
-            System.out.println(p);
-        }
+        Person[] personsArray = persons.get();
+        printArray(Sort.quickSorting(personsArray, (p1, p2) -> p1.hashCode() - p2.hashCode()));
 
-        System.out.println("\n------------------------\n");
+        System.out.println("--Sort--");
+        Sort sort = new Sort();
+        System.out.println("--BS_1--");
+        printArray(Sort.quickSorting(personsArray));
+        System.out.println("--BS_2--");
+        printArray(Sort.quickSorting(personsArray, (p1, p2) -> { return p1.getAge() - p2.getAge(); }));
 
-        persons.delete(persons.findElements(x -> x.getName().equals("Sasha")));
+        System.out.println("--Filter_1--");
+        printArray(persons.findElements(x -> x.getGender() == Gender.male));
 
-        for(Person p: persons.get()) {
-            System.out.println(p);
-        }
-
-        System.out.println("\n------------------------\n");
-
-        Person person = new Person(3, "Sasha", Gender.male, new LocalDate(1975, 12,20));
-        persons.add(person);
-
-        for(Person p: persons.sort()) {
-            System.out.println(p);
-        }
-
-        System.out.println("\n------------------------\n");
-
-        for (Person p: persons.sorting((x, y) -> x.getAge() > y.getAge())) {
-            System.out.println(p);
-        }
     }
 }

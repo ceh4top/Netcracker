@@ -4,6 +4,7 @@ import labs.laba1.helper.Gender;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -64,8 +65,8 @@ public class Person extends Model {
      * @return gender
      * @see Gender
      */
-    public String getGender() {
-        return gender.toString();
+    public Gender getGender() {
+        return gender;
     }
     /**
      * Method of setting a person's gender
@@ -124,4 +125,7 @@ public class Person extends Model {
     public int hashCode() {
         return Objects.hash(this.getId(), this.getName(), this.getFullName(), this.getGender(), this.getBrithday());
     }
+
+    public static Comparator<Person> comparatorById = (value1, value2) -> (value1.id < value2.id) ? -1 : (value1.id == value2.id ? 0 : 1);
+    public Comparable<Person> comparableById = (value1) -> this.id == value1.id ? 0 : 1;
 }

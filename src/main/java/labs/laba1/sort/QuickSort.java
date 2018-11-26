@@ -3,7 +3,7 @@ package labs.laba1.sort;
 import java.util.Comparator;
 import java.util.Random;
 
-class QuickSort {
+class QuickSort implements Sort {
     private static final Random RND = new Random();
 
     private <T> void swap(T[] array, int i, int j) {
@@ -24,7 +24,6 @@ class QuickSort {
         swap(array, index, end);
         return (index);
     }
-
     private <T> void qsort(T[] array, int begin, int end, Comparator<T> cmp) {
         if (end > begin) {
             int index = partition(array, begin, end, cmp);
@@ -32,9 +31,9 @@ class QuickSort {
             qsort(array, index + 1,  end,  cmp);
         }
     }
-
-    public <T> void sort(T[] array, Comparator<T> cmp) {
+    public <T> T[] sort(T[] array, Comparator<T> cmp) {
         qsort(array, 0, array.length - 1, cmp);
+        return array;
     }
 
     private <T extends Comparable<T>> int partition(T[] array, int begin, int end) {
@@ -49,7 +48,6 @@ class QuickSort {
         swap(array, index, end);
         return (index);
     }
-
     private <T extends Comparable<T>> void qsort(T[] array, int begin, int end) {
         if (end > begin) {
             int index = partition(array, begin, end);
@@ -57,8 +55,8 @@ class QuickSort {
             qsort(array, index + 1,  end);
         }
     }
-
-    public <T extends Comparable<T>> void sort(T[] array) {
+    public <T extends Comparable<T>> T[] sort(T[] array) {
         qsort(array, 0, array.length - 1);
+        return array;
     }
 }

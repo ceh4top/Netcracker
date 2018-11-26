@@ -5,6 +5,13 @@ import labs.laba1.entity.Person;
 import java.util.Arrays;
 
 public class PeronRepository extends Repository<Person> {
+    /** Future item identifier */
+    private static int id = 1;
+
+    @Override
+    protected int getNewId() {
+        return id++;
+    }
 
     /** PersonRepository Singleton */
     private static IReposiory<Person> instance;

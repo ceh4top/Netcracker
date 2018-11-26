@@ -45,7 +45,7 @@ public interface IReposiory<T extends IModel> {
      * @param filter: IFilter
      * @see IFilter
      */
-    void delete(IFilter<T> filter);
+    void delete(Predicate<T> filter);
     /**
      * Deleting array elements
      * @param values: T[]
