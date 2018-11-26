@@ -3,6 +3,7 @@ package labs.laba1.repository;
 import labs.laba1.entity.IModel;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 abstract class Repository<T extends IModel> implements IReposiory<T> {
     /** Future item identifier */
@@ -18,20 +19,10 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
     /** Array of elements */
     protected T[] values;
 
-    public <L> L[] selectValues(ISelect<T> select) throws Exception {
-        L[] result = ((Class<L>) select.getResult(values[0])).newInstance[];
-        for (T value: values) {
-            int count = result.length;
-            result = Arrays.copyOf(result, count + 1);
-            result[count] = select.getResult(value);
-        }
-        return result;
-    }
-
-    public T[] findElements(IFilter<T> filter) {
+    public T[] findElements(Predicate<T> filter) {
         T[] values = Arrays.copyOf(this.values, 0);
         for (T value: this.values) {
-            if (value != null && filter.getResult(value)) {
+            if (value != null && filter.test(value)) {
                 int index = values.length;
                 values = Arrays.copyOf(values, index + 1);
                 values[index] = value;
@@ -39,7 +30,7 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
         }
         return values;
     }
-    public T findElement(IFilter<T> filter) {
+    public T findElement(Predicate<T> filter) {
         T[] values = findElements(filter);
         return values.length > 0 ? values[0] : null;
     }

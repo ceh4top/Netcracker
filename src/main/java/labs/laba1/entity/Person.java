@@ -103,19 +103,25 @@ public class Person extends Model {
 
     @Override
     public String toString() {
-        return "{\"id\": " + this.getId() + ", \"fullName\": \"" + this.getFullName() + "\", \"gender\": \"" + this.getGender() + "\", \"age\": " + this.getAge() + "}";
+        return String.format("{\"id\": %d, \"fullName\": \"%s\", \"gender\": \"%s\", \"age\": %d}",
+                this.getId(), this.getFullName(), this.getGender(), this.getAge());
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
+        if (this.getClass() != o.getClass()) return false;
         if (this.hashCode() != o.hashCode()) return false;
 
         Person person = (Person) o;
-        return this.getId() != person.getId();
+        return this.getId() == person.getId()
+                && this.getName().equals(person.getName())
+                && this.getFullName().equals(person.getFullName())
+                && this.getGender().equals(person.getGender())
+                && this.getBrithday() == person.getBrithday();
     }
     @Override
     public int hashCode() {
-        return Objects.hash(this.getFullName(), this.getGender(), this.getBrithday());
+        return Objects.hash(this.getId(), this.getName(), this.getFullName(), this.getGender(), this.getBrithday());
     }
 }

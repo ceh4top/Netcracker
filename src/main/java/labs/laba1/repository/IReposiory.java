@@ -2,22 +2,23 @@ package labs.laba1.repository;
 
 import labs.laba1.entity.IModel;
 
+import java.util.function.Predicate;
+
 public interface IReposiory<T extends IModel> {
-    <L> L[] selectValues(ISelect<T> select);
     /**
      * The method of obtaining an array of elements suitable for the condition
      * @param filter: IFilter
      * @return values: T[]
-     * @see IFilter
+     * @see Predicate
      */
-    T[] findElements(IFilter<T> filter);
+    T[] findElements(Predicate<T> filter);
     /**
      * The method of obtaining the first element suitable under the condition
      * @param filter: IFilter
      * @return value: T
-     * @see IFilter
+     * @see Predicate
      */
-    T findElement(IFilter<T> filter);
+    T findElement(Predicate<T> filter);
     /**
      * Getting all items
      * @return values: T[]

@@ -4,6 +4,7 @@ import labs.laba1.entity.Person;
 import labs.laba1.helper.Gender;
 import labs.laba1.repository.IReposiory;
 import labs.laba1.repository.PeronRepository;
+import labs.laba1.sort.Sort;
 import org.joda.time.LocalDate;
 
 import java.util.Random;
@@ -52,9 +53,8 @@ public class Main {
 
         System.out.println("\n------------------------\n");
 
-        for (int age: persons.selectValues(x -> x.getAge())) {
-            System.out.println(age);
+        for (Person p: persons.sorting((x, y) -> x.getAge() > y.getAge())) {
+            System.out.println(p);
         }
-
     }
 }
