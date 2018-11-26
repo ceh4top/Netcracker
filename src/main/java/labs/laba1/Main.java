@@ -47,7 +47,7 @@ public class Main {
         Person person = new Person(3, "Sasha", Gender.male, new LocalDate(1975, 12,20));
         persons.add(person);
 
-        for(Person p: persons.get()) {
+        for(Person p: persons.sort()) {
             System.out.println(p);
         }
 
