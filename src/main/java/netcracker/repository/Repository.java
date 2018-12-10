@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-public abstract class Repository<T extends IModel> implements IReposiory<T> {
+abstract class Repository<T extends IModel> implements IReposiory<T> {
     private static final Logger logger = Logger.getLogger(Repository.class);
 
     /**
