@@ -1,7 +1,8 @@
-package labs.laba1.repository;
+package netcracker.repository;
 
-import labs.laba1.entity.IModel;
+import netcracker.entity.IModel;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 public interface IReposiory<T extends IModel> {
@@ -61,4 +62,8 @@ public interface IReposiory<T extends IModel> {
      * @param id: int
      */
     void delete(int id);
+
+    void sort(Comparator<T> comparator);
+
+    void truncate();
 }

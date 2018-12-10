@@ -1,9 +1,9 @@
-package labs.laba1.sort;
+package netcracker.sort;
 
 import java.util.Comparator;
 import java.util.Random;
 
-class QuickSort implements Sort {
+public class QuickSort implements ISort {
     private static final Random RND = new Random();
 
     private <T> void swap(T[] array, int i, int j) {

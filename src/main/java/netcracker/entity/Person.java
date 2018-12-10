@@ -1,6 +1,6 @@
-package labs.laba1.entity;
+package netcracker.entity;
 
-import labs.laba1.helper.Gender;
+import netcracker.helper.Gender;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
@@ -119,7 +119,7 @@ public class Person extends Model {
                 && this.getName().equals(person.getName())
                 && this.getFullName().equals(person.getFullName())
                 && this.getGender().equals(person.getGender())
-                && this.getBrithday() == person.getBrithday();
+                && this.getBrithday().equals(person.getBrithday());
     }
     @Override
     public int hashCode() {

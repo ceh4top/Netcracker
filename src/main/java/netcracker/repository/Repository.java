@@ -1,19 +1,35 @@
-package labs.laba1.repository;
+package netcracker.repository;
 
-import labs.laba1.entity.IModel;
+import netcracker.entity.IModel;
+import netcracker.sort.ISort;
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
-abstract class Repository<T extends IModel> implements IReposiory<T> {
+public abstract class Repository<T extends IModel> implements IReposiory<T> {
+    private static final Logger logger = Logger.getLogger(Repository.class);
+
     /**
      * Getting item ID
      * @return id: int - item identifier
      * */
     protected abstract int getNewId();
+    protected abstract void emptyId();
+
+    protected abstract ISort sorting();
 
     /** Array of elements */
     protected T[] values;
+    protected int indexOfById(int id) {
+        for (int i = 0; i < values.length; ++i) {
+            if (values[i].getId() == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public T[] findElements(Predicate<T> filter) {
         T[] values = Arrays.copyOf(this.values, 0);
@@ -24,6 +40,13 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
                 values[index] = value;
             }
         }
+
+        if (values.length == 0) {
+            logger.warn("Ни одного объектна не найдено!");
+        } else {
+            logger.info("Объекты найдены!");
+        }
+
         return values;
     }
     public T findElement(Predicate<T> filter) {
@@ -32,20 +55,14 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
                 return value;
             }
         }
+
+        logger.warn("Объект не найден!");
         return null;
     }
+
     public T[] get() { return this.values; }
     public T get(int id) {
         return this.findElement(value -> value.getId() == id);
-    }
-
-    protected int indexOfById(int id) {
-        for (int i = 0; i < values.length; ++i) {
-            if (values[i].getId() == id) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public void add(T value) {
@@ -97,5 +114,14 @@ abstract class Repository<T extends IModel> implements IReposiory<T> {
                 values[index] = values[index + 1];
             values = Arrays.copyOf(values, values.length - 1);
         }
+    }
+
+    public void sort(Comparator<T> comparator) {
+        sorting().sort(values, comparator);
+    }
+
+    public void truncate() {
+        values = Arrays.copyOf(values, 0);
+        emptyId();
     }
 }

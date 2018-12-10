@@ -1,4 +1,4 @@
-package labs.laba1.entity;
+package netcracker.entity;
 
 import java.util.Objects;
 

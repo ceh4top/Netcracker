@@ -1,13 +1,11 @@
-package labs.laba1;
+package netcracker;
 
-import labs.laba1.entity.Person;
-import labs.laba1.helper.Gender;
-import labs.laba1.repository.IReposiory;
-import labs.laba1.repository.PeronRepository;
-import labs.laba1.sort.Sort;
+import netcracker.annotations.SortAnnotationAnalyzer;
+import netcracker.entity.Person;
+import netcracker.helper.Gender;
+import netcracker.repository.IReposiory;
+import netcracker.repository.PersonRepository;
 import org.joda.time.LocalDate;
-
-import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
@@ -18,7 +16,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        IReposiory<Person> persons = PeronRepository.getInstance();
+        IReposiory<Person> persons = PersonRepository.getInstance();
+        SortAnnotationAnalyzer.analyze(persons);
 
         String[][] names = new String[][] {
                 {"Dima", "Sasha", "Pasha", "Artem", "Tihon"},
@@ -37,15 +36,16 @@ public class Main {
             persons.add(person);
         }
 
-        Person[] personsArray = persons.get();
-        printArray(Sort.quickSorting(personsArray, (p1, p2) -> p1.hashCode() - p2.hashCode()));
+        persons.sort((p1, p2) -> p1.hashCode() - p2.hashCode());
+        printArray(persons.get());
 
         System.out.println("--Sort--");
-        Sort sort = new Sort();
-        System.out.println("--BS_1--");
-        printArray(Sort.quickSorting(personsArray));
-        System.out.println("--BS_2--");
-        printArray(Sort.quickSorting(personsArray, (p1, p2) -> { return p1.getAge() - p2.getAge(); }));
+        System.out.println("--QS_1 ID--");
+        persons.sort((p1, p2) -> p1.getId() - p2.getId());
+        printArray(persons.get());
+        System.out.println("--QS_2 AGE--");
+        persons.sort((p1, p2) -> p1.getAge() - p2.getAge());
+        printArray(persons.get());
 
         System.out.println("--Filter_1--");
         printArray(persons.findElements(x -> x.getGender() == Gender.male));
